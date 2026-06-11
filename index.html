@@ -68,7 +68,8 @@
         const data = trackingData[channelKey];
         const baseUrl = "https://msf.dk" + data.path;
         
-        let url = `${baseUrl}?utm_campaign=ebola26&utm_source=${data.src}&utm_medium=${data.med}&utm_content=${data.con}&campaign_code=${data.camp}&campaign_code_recurring=${data.rec}`;
+        // Rækkefølge: Campaign/Rec først, derefter UTM-parametre
+        let url = `${baseUrl}?campaign_code=${data.camp}&campaign_code_recurring=${data.rec}&utm_campaign=ebola26&utm_source=${data.src}&utm_medium=${data.med}&utm_content=${data.con}`;
         
         if (termValue !== "") { url += `&utm_term=${termValue}`; }
         
