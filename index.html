@@ -69,7 +69,7 @@
         const baseUrl = "https://msf.dk" + data.path;
         
         // Rækkefølge: Campaign/Rec først, derefter UTM-parametre
-        let url = `${baseUrl}?campaign_code=${data.camp}&campaign_code_recurring=${data.rec}&utm_campaign=ebola26&utm_source=${data.src}&utm_medium=${data.med}&utm_content=${data.con}`;
+        let url = `${baseUrl}?campaign_code=${data.camp}&campaign_code_recurring=${data.rec}&utm_campaign=ebola26_earmarked&utm_source=${data.src}&utm_medium=${data.med}&utm_content=${data.con}`;
         
         if (termValue !== "") { url += `&utm_term=${termValue}`; }
         
