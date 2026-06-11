@@ -7,13 +7,13 @@
                 <label>Vælg kanal</label>
                 <select id="channel" onchange="generateLink()">
                     <optgroup label="SOCIAL / ONE-OFF">
-                        <option value="ebola-social">Social One-off</option>
+                        <option value="ebola-social">Social One-off (Fast bidrag: 3391)</option>
                     </optgroup>
                     <optgroup label="EMAIL">
-                        <option value="ebola-email">Email Appel</option>
+                        <option value="ebola-email">Email Appel (Fast bidrag: 2824)</option>
                     </optgroup>
                     <optgroup label="WEB / ANDET">
-                        <option value="ebola-web">Web Donationer (Default)</option>
+                        <option value="ebola-web">Web Donationer (Fast bidrag: 3391)</option>
                     </optgroup>
                 </select>
             </div>
@@ -21,9 +21,6 @@
             <div class="input-section">
                 <label>A/B-test eller specifikt budskab (UTM Term)</label>
                 <input type="text" id="utm_term" placeholder="Eks: test_a, foto_laege eller budskab_beskyttelse" oninput="generateLink()">
-                <small style="display:block; margin-top:5px; color:#666; font-size:11px;">
-                    Brug dette felt til at skelne mellem forskellige versioner af samme opslag.
-                </small>
             </div>
 
             <div class="output-section">
@@ -49,13 +46,10 @@
     .body { padding: 40px; }
     .input-section { margin-bottom: 30px; }
     label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 10px; color: #000; text-transform: uppercase; }
-    select, input { width: 100%; border: 1px solid #000; padding: 15px; padding-right: 45px; font-size: 16px; background: #fff; border-radius: 0; outline: none; box-sizing: border-box; font-family: inherit; appearance: none; }
+    select, input { width: 100%; border: 1px solid #000; padding: 15px; padding-right: 45px; font-size: 16px; background: #fff; border-radius: 0; outline: none; box-sizing: border-box; appearance: none; }
     select { background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 20px center; background-size: 16px; cursor: pointer; }
-    input:focus { border-color: #ee0000; }
-    optgroup { font-weight: bold; background: #f0f0f0; }
-    .url-display { border: 1px solid #e0e0e0; padding: 20px; font-size: 14px; word-break: break-all; margin-bottom: 20px; background: #fdfdfd; line-height: 1.6; color: #000; min-height: 50px; }
+    .url-display { border: 1px solid #e0e0e0; padding: 20px; font-size: 14px; word-break: break-all; margin-bottom: 20px; background: #fdfdfd; min-height: 50px; }
     button { width: 100%; background: #000; color: #fff; border: none; padding: 18px; font-size: 15px; font-weight: 700; cursor: pointer; text-transform: uppercase; }
-    button:hover { background: #333; }
     .footer { border-top: 1px solid #eee; padding: 25px 40px; background: #fafafa; }
     .code-line { font-size: 13px; color: #666; margin-bottom: 6px; text-transform: lowercase; }
     .code-line span { font-weight: 700; color: #000; margin-left: 8px; font-family: monospace; }
@@ -63,9 +57,9 @@
 
 <script>
     const trackingData = {
-        "ebola-social": { src: "facebook", med: "paid-social", con: "post", sign: "4165", camp: "4165", rec: "4165", path: "/ebola/" },
-        "ebola-email":  { src: "newsletter", med: "email", con: "newsletter", sign: "4166", camp: "4166", rec: "4166", path: "/ebola/" },
-        "ebola-web":    { src: "msf-web", med: "internal", con: "banner", sign: "4174", camp: "4174", rec: "4174", path: "/ebola/" }
+        "ebola-social": { src: "facebook", med: "paid-social", con: "post", sign: "4165", camp: "4165", rec: "3391", path: "/ebola/" },
+        "ebola-email":  { src: "newsletter", med: "email", con: "newsletter", sign: "4166", camp: "4166", rec: "2824", path: "/ebola/" },
+        "ebola-web":    { src: "msf-web", med: "internal", con: "banner", sign: "4174", camp: "4174", rec: "3391", path: "/ebola/" }
     };
 
     function generateLink() {
@@ -76,9 +70,7 @@
         
         let url = `${baseUrl}?utm_campaign=ebola26&utm_source=${data.src}&utm_medium=${data.med}&utm_content=${data.con}&campaign_code=${data.camp}&signcode=${data.sign}&campaign_code_recurring=${data.rec}`;
         
-        if (termValue !== "") {
-            url += `&utm_term=${termValue}`;
-        }
+        if (termValue !== "") { url += `&utm_term=${termValue}`; }
         
         document.getElementById('final-url').innerText = url;
         document.getElementById('code-sign').innerText = data.sign;
