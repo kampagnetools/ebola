@@ -6,8 +6,12 @@
             <div class="input-section">
                 <label>Vælg kanal</label>
                 <select id="channel" onchange="generateLink()">
-                    <optgroup label="SOCIAL / ONE-OFF">
-                        <option value="ebola-social">Social One-off</option>
+                    <optgroup label="SOCIAL">
+                        <option value="ebola-paid-social">Paid Social</option>
+                        <option value="ebola-organic-social">Organic Social</option>
+                    </optgroup>
+                    <optgroup label="SEARCH">
+                        <option value="ebola-search">Google CPC (Search)</option>
                     </optgroup>
                     <optgroup label="EMAIL">
                         <option value="ebola-email">Email Appel</option>
@@ -55,9 +59,11 @@
 
 <script>
     const trackingData = {
-        "ebola-social": { src: "facebook", med: "paid-social", con: "post", camp: "4165", rec: "3391", path: "/ebola/" },
-        "ebola-email":  { src: "newsletter", med: "email", con: "newsletter", camp: "4166", rec: "2824", path: "/ebola/" },
-        "ebola-web":    { src: "msf-web", med: "internal", con: "banner", camp: "4174", rec: "3391", path: "/ebola/" }
+        "ebola-paid-social":    { src: "facebook",   med: "paid-social", con: "post",       camp: "4165", rec: "3391", path: "/ebola/" },
+        "ebola-organic-social": { src: "facebook",   med: "social",      con: "post",       camp: "4165", rec: "3391", path: "/ebola/" },
+        "ebola-search":         { src: "google",     med: "cpc",         con: "search",     camp: "4174", rec: "3391", path: "/ebola/" },
+        "ebola-email":          { src: "newsletter", med: "email",       con: "newsletter", camp: "4166", rec: "2824", path: "/ebola/" },
+        "ebola-web":            { src: "msf-web",    med: "internal",    con: "banner",     camp: "4174", rec: "3391", path: "/ebola/" }
     };
 
     function generateLink() {
