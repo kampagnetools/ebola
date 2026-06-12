@@ -56,10 +56,100 @@
 
 <script>
     const trackingData = {
-        "ebola-paid-social":    { src: "facebook",   med: "paid-social", con: "post",       camp: "4165", rec: "3391", path: "/ebola/" },
-        "ebola-organic-social": { src: "facebook",   med: "social",      con: "post",       camp: "4165", rec: "3391", path: "/ebola/" },
-        "ebola-email":          { src: "newsletter", med: "email",       con: "newsletter", camp: "4166", rec: "2824", path: "/ebola/" },
-        "ebola-web":            { src: "msf-web",    med: "internal",    con: "banner",     camp: "4174", rec: "3391", path: "/ebola/" }
+        "ebola-paid-social":    { src: "facebook",   med: "paid-social", con: "post",       camp: "4165", rec: "3391", path: "/stoet/ebola-indsats/" },
+        "ebola-organic-social": { src: "facebook",   med: "social",      con: "post",       camp: "4165", rec: "3391", path: "/stoet/ebola-indsats/" },
+        "ebola-email":          { src: "newsletter", med: "email",       con: "newsletter", camp: "4166", rec: "2824", path: "/stoet/ebola-indsats/" },
+        "ebola-web":            { src: "msf-web",    med: "internal",    con: "banner",     camp: "4174", rec: "3391", path: "/stoet/ebola-indsats/" }
+    };
+
+    function generateLink() {
+        const channelKey = document.getElementById('channel').value;
+        const termValue = document.getElementById('utm_term').value.trim().replace(/\s+/g, '_').toLowerCase();
+        const data = trackingData[channelKey];
+        const baseUrl = "https://msf.dk" + data.path;
+        
+        // Rækkefølge: Campaign/Rec først, derefter UTM-parametre
+        let url = `${baseUrl}?campaign_code=${data.camp}&campaign_code_recurring=${data.rec}&utm_campaign=ebola26_earmarked&utm_source=${data.src}&utm_medium=${data.med}&utm_content=${data.con}`;
+        
+        if (termValue !== "") { url += `&utm_term=${termValue}`; }
+        
+        document.getElementById('final-url').innerText = url;
+        document.getElementById('code-camp').innerText = data.camp;
+        document.getElementById('code-rec').innerText = data.rec;
+    }
+
+    function copyUrl() {
+        const text = document.getElementById('final-url').innerText;
+        const btn = document.getElementById('copy-btn');
+        navigator.clipboard.writeText(text).then(() => {
+            btn.innerText = "✓ KOPIERET";
+            setTimeout(() => { btn.innerText = "KOPIÉR LINK"; }, 1000);
+        });
+    }
+    
+    generateLink();
+</script><div class="msf-center-layout">
+    <div class="box">
+        <div class="header">Ebola Øremærket</div>
+        
+        <div class="body">
+            <div class="input-section">
+                <label>Vælg kanal</label>
+                <select id="channel" onchange="generateLink()">
+                    <optgroup label="SOCIAL">
+                        <option value="ebola-paid-social">Paid Social</option>
+                        <option value="ebola-organic-social">Organic Social</option>
+                    </optgroup>
+                    <optgroup label="EMAIL">
+                        <option value="ebola-email">E-mail</option>
+                    </optgroup>
+                    <optgroup label="WEB / ANDET">
+                        <option value="ebola-web">Web Donationer (Standard)</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="input-section">
+                <label>A/B-test eller specifikt budskab (UTM Term)</label>
+                <input type="text" id="utm_term" placeholder="Eks: test_a, foto_laege eller budskab_beskyttelse" oninput="generateLink()">
+            </div>
+
+            <div class="output-section">
+                <label>Genereret URL</label>
+                <div id="final-url" class="url-display">...</div>
+                <button onclick="copyUrl()" id="copy-btn">KOPIÉR LINK</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="code-line">kampagnekode: <span id="code-camp">-</span></div>
+            <div class="code-line">fast_bidrag_kode: <span id="code-rec">-</span></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    html, body { height: 100%; margin: 0; background: #f4f4f4; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .msf-center-layout { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; box-sizing: border-box; }
+    .box { width: 100%; max-width: 800px; border: 1px solid #000; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .header { background: #000; color: #fff; padding: 18px 25px; font-weight: 700; font-size: 16px; letter-spacing: 1.5px; }
+    .body { padding: 40px; }
+    .input-section { margin-bottom: 30px; }
+    label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 10px; color: #000; text-transform: uppercase; }
+    select, input { width: 100%; border: 1px solid #000; padding: 15px; font-size: 16px; background: #fff; appearance: none; }
+    .url-display { border: 1px solid #e0e0e0; padding: 20px; font-size: 14px; word-break: break-all; margin-bottom: 20px; background: #fdfdfd; min-height: 50px; }
+    button { width: 100%; background: #000; color: #fff; border: none; padding: 18px; font-size: 15px; font-weight: 700; cursor: pointer; text-transform: uppercase; }
+    .footer { border-top: 1px solid #eee; padding: 25px 40px; background: #fafafa; }
+    .code-line { font-size: 13px; color: #666; margin-bottom: 6px; text-transform: lowercase; }
+    .code-line span { font-weight: 700; color: #000; margin-left: 8px; font-family: monospace; }
+</style>
+
+<script>
+    const trackingData = {
+        "ebola-paid-social":    { src: "facebook",   med: "paid-social", con: "post",       camp: "4165", rec: "3391", path: "/stoet/ebola-indsats/" },
+        "ebola-organic-social": { src: "facebook",   med: "social",      con: "post",       camp: "4165", rec: "3391", path: "/stoet/ebola-indsats/" },
+        "ebola-email":          { src: "newsletter", med: "email",       con: "newsletter", camp: "4166", rec: "2824", path: "/stoet/ebola-indsats/" },
+        "ebola-web":            { src: "msf-web",    med: "internal",    con: "banner",     camp: "4174", rec: "3391", path: "/stoet/ebola-indsats/" }
     };
 
     function generateLink() {
